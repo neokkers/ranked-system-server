@@ -1,20 +1,20 @@
-const jwt = require('jsonwebtoken');
-const asyncHandler = require('./async');
-const ErrorResponse = require('../utils/errorResponse');
-const User = require('../models/User');
+const jwt = require("jsonwebtoken");
+const asyncHandler = require("./async");
+const ErrorResponse = require("../utils/errorResponse");
+const User = require("../models/User");
 
 exports.protect = asyncHandler(async (req, res, next) => {
   let token;
 
   if (
-    req.headers.authorization
-    && req.headers.authorization.startsWith('Bearer')
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
   ) {
-    token = req.headers.authorization.split(' ')[1];
+    token = req.headers.authorization.split(" ")[1];
   }
 
   if (!token) {
-    return next(new ErrorResponse('Not authorized to access', 401));
+    return next(new ErrorResponse("Not authorized to access", 401));
   }
 
   try {
@@ -27,6 +27,6 @@ exports.protect = asyncHandler(async (req, res, next) => {
 
     next();
   } catch (error) {
-    return next(new ErrorResponse('Not authorized to access', 401));
+    return next(new ErrorResponse("Not authorized to access", 401));
   }
 });
