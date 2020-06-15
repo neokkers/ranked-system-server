@@ -58,19 +58,23 @@ const deleteAll = async () => {
 };
 const resetElo = async () => {
   try {
-    // await User.updateMany({}, { $set: { elo: 900 }, $inc: { quantity: 2 } });
+    // await User.updateMany(
+    //   {},
+    //   { $set: { elo: { $sum: ["$elo", 500] } }, $inc: { quantity: 2 } }
+    // );
+    await User.aggregate([{ $project: { elo: { $add: ["$elo", 1000] } } }]);
     // await WerewolfProfile.updateMany({}, { $set: { elo: $elo * 2 } });
 
-    const eee = await WerewolfProfile.find();
-    eee.forEach(async (doc) => {
-      // doc.events.forEach(function (event) {
-      //   event.elo = event.elo * 2;
-      // });
-      // WerewolfProfile.save(doc);
-      const newElo = doc.elo * 20;
-      await WerewolfProfile.updateOne({ _id: doc._id }, { $set: { elo: 900 } });
-      console.log(doc);
-    });
+    // const eee = await WerewolfProfile.find();
+    // eee.forEach(async (doc) => {
+    //   // doc.events.forEach(function (event) {
+    //   //   event.elo = event.elo * 2;
+    //   // });
+    //   // WerewolfProfile.save(doc);
+    //   const newElo = doc.elo * 20;
+    //   await WerewolfProfile.updateOne({ _id: doc._id }, { $set: { elo: 900 } });
+    //   console.log(doc);
+    // });
 
     console.log("resetElo successful...".red.inverse);
   } catch (error) {
