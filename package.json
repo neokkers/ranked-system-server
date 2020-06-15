@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
-    "da": "nodemon seeder.js -da",
-    "re": "nodemon seeder.js -re",
-    "ue": "nodemon seeder.js -ue"
+    "da": "node seeder.js -da",
+    "re": "node seeder.js -re",
+    "ue": "node seeder.js -ue"
   },
   "repository": {
     "type": "git",
