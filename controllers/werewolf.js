@@ -12,6 +12,16 @@ exports.getWerewolfProfiles = asyncHandler(async (req, res, next) => {
     .json({ success: true, count: werewolfProfiles.length, werewolfProfiles });
 });
 
+// @desc    Get games
+// @route   GET /api/v1/werewolf/games
+// @access  Public
+exports.getWerewolfGames = asyncHandler(async (req, res, next) => {
+  const werewolfGames = await WerewolfGame.find();
+  res
+    .status(200)
+    .json({ success: true, count: werewolfGames.length, werewolfGames });
+});
+
 // @desc    Create game
 // @route   POST /api/v1/werewolf/games
 // @access  Private
