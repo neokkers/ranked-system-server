@@ -4,10 +4,11 @@ const {
   createWerewolfGame,
   getWerewolfGames,
 } = require("../controllers/werewolf");
-
+const ErrorResponse = require("../utils/errorResponse");
 const router = express.Router();
+const { protect } = require("../middleware/auth");
 
 router.route("/profiles").get(getWerewolfProfiles);
-router.route("/games").post(createWerewolfGame).get(getWerewolfGames);
+router.route("/games").get(getWerewolfGames).post(protect, createWerewolfGame);
 
 module.exports = router;
