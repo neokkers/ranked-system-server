@@ -1,6 +1,7 @@
 const asyncHandler = require("../middleware/async");
 const WerewolfProfile = require("../models/Werewolf/WerewolfProfile");
 const WerewolfGame = require("../models/Werewolf/WerewolfGame");
+const { updateElo } = require("../utils/updateElo");
 
 // @desc    Get profiles
 // @route   GET /api/v1/werewolf/profiles
@@ -27,6 +28,8 @@ exports.getWerewolfGames = asyncHandler(async (req, res, next) => {
 // @access  Private
 exports.createWerewolfGame = asyncHandler(async (req, res, next) => {
   const game = await WerewolfGame.create(req.body);
-
+  console.log(game);
+  // throw new Error();
+  await updateElo(game);
   res.status(201).json({ success: true, data: game });
 });

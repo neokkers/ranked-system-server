@@ -86,6 +86,21 @@ const resetElo = async () => {
   }
 };
 
+const reconcileElo = async () => {
+  try {
+    const games = await WerewolfGame.find();
+    games.forEach(async (doc) => {
+      // doc.events.forEach(function (event) {
+      //   event.elo = event.elo * 2;
+      // });
+      // WerewolfProfile.save(doc);
+      await updateElo(doc);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // const updateElo = async () => {
 //   try {
 //     // await User.updateMany({}, { $set: { elo: 900 }, $inc: { quantity: 2 } });
@@ -166,7 +181,7 @@ if (process.argv[2] === "-re") {
   resetElo();
 }
 if (process.argv[2] === "-ue") {
-  updateElo();
+  reconcileElo();
 }
 if (process.argv[2] === "-xx") {
   (async () => {
