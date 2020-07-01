@@ -10,6 +10,7 @@ dotenv.config({ path: "./config/config.env" });
 const User = require("./models/User");
 const WerewolfProfile = require("./models/Werewolf/WerewolfProfile");
 const WerewolfGame = require("./models/Werewolf/WerewolfGame");
+const SHProfile = require("./models/SH/SHProfile");
 
 const { updateElo } = require("./utils/updateElo");
 
@@ -83,6 +84,18 @@ const resetElo = async () => {
     return;
   } catch (error) {
     console.log(error);
+  }
+};
+
+const createSHProfiles = async () => {
+  try {
+    const users = await User.find();
+    users.forEach(async (doc) => {
+      await SHProfile.create({ userId: doc._id, username: doc.username });
+      console.log("SHProfile created".yellow.inverse);
+    });
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -177,6 +190,9 @@ if (process.argv[2] === "-da") {
 if (process.argv[2] === "-cu") {
   createUsers();
 }
+if (process.argv[2] === "-csh") {
+  createSHProfiles();
+}
 if (process.argv[2] === "-re") {
   resetElo();
 }
@@ -186,7 +202,7 @@ if (process.argv[2] === "-ue") {
 if (process.argv[2] === "-xx") {
   (async () => {
     const salt = await bcrypt.genSalt(10);
-    const password = await bcrypt.hash("sirbennylies", salt);
+    const password = await bcrypt.hash("", salt);
     const admin = await User.findByIdAndUpdate("5ee6769feaf215191943c4eb", {
       password: password,
     });

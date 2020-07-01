@@ -16,9 +16,8 @@ connectDB();
 // Route files
 const auth = require("./routes/auth");
 const werewolf = require("./routes/werewolf");
+const sh = require("./routes/sh");
 const users = require("./routes/users");
-// const firms = require('./routes/firms');
-// const programs = require('./routes/programs');
 
 const app = express();
 
@@ -38,10 +37,9 @@ if (process.env.NODE_ENV === "development") {
 
 // Mount routers
 app.use("/api/v1/auth", auth);
-app.use("/api/v1/werewolf", werewolf);
 app.use("/api/v1/users", users);
-// app.use('/api/v1/firms', firms);
-// app.use('/api/v1/programs', programs);
+app.use("/api/v1/werewolf", werewolf);
+app.use("/api/v1/sh", sh);
 
 // Error handler middleware
 app.use(errorHandler);

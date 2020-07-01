@@ -9,7 +9,8 @@
     "dev-d": "nodemon server.js",
     "da": "node seeder.js -da",
     "re": "node seeder.js -re",
-    "ue": "node seeder.js -ue"
+    "ue": "node seeder.js -ue",
+    "csh": "node seeder.js -csh"
   },
   "repository": {
     "type": "git",
