@@ -2,6 +2,7 @@ const ErrorResponse = require("../utils/errorResponse");
 
 const errorHandler = (err, req, res, next) => {
   let error = new ErrorResponse("Something went wrong :(", 500);
+  console.dir(err);
 
   if (err.name === "ValidationError") {
     error = new ErrorResponse("Validation error", 404);

@@ -10,6 +10,7 @@ const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const User = require("../models/User");
 const WerewolfProfile = require("../models/Werewolf/WerewolfProfile");
+const SHProfile = require("../models/SH/SHProfile");
 
 // @desc    Register user
 // @route   POST /api/v1/auth/register
@@ -30,8 +31,16 @@ const register = asyncHandler(async (req, res, next) => {
     userId: user._id,
     username: user.username,
   });
+  const shProfile = await SHProfile.create({
+    userId: user._id,
+    username: user.username,
+  });
 
-  if (!werewolfProfile) return next(new ErrorResponse("Register error", 500));
+  if (!werewolfProfile || !shProfile)
+    // if (!werewolfProfile)
+    return next(
+      new ErrorResponse("Register error while creating game profiles", 500)
+    );
 
   // Create token
   sendTokenResponse(user, 200, res);

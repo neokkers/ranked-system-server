@@ -5,6 +5,7 @@ const WerewolfProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "User",
     required: [true, "Please add a user"],
+    unique: true,
   },
   username: {
     type: String,

@@ -1,8 +1,25 @@
 const mongoose = require("mongoose");
 
 const SHGameSchema = new mongoose.Schema({
-  villains: [{ type: mongoose.Schema.ObjectId, ref: "User" }],
-  liberals: [{ type: mongoose.Schema.ObjectId, ref: "User" }],
+  villains: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: [true, "Please add villains"],
+    },
+  ],
+  liberals: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: [true, "Please add liberals"],
+    },
+  ],
+  mainVillain: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: [true, "Please add a main villain"],
+  },
   villainsWon: {
     type: Boolean,
     required: [true, "Please add a villainsWon flag"],
