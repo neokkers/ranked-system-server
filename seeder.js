@@ -11,8 +11,10 @@ const User = require("./models/User");
 const WerewolfProfile = require("./models/Werewolf/WerewolfProfile");
 const WerewolfGame = require("./models/Werewolf/WerewolfGame");
 const SHProfile = require("./models/SH/SHProfile");
+const SHGame = require("./models/SH/SHGame");
 
 const { updateElo } = require("./utils/updateElo");
+const { updateEloSH } = require("./utils/updateEloSH");
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -64,23 +66,19 @@ const resetElo = async () => {
   try {
     // await WerewolfProfile.updateMany({}, { $inc: { elo: -6 } });
     await WerewolfProfile.updateMany({}, { $set: { elo: 1000 } });
-    // await WerewolfProfile.aggregate([
-    //   { $project: { elo: { $add: ["$elo", 1000] } } },
-    // ]);
-    // await WerewolfProfile.updateMany({}, { $set: { elo: $elo * 2 } });
-
-    // const eee = await WerewolfProfile.find();
-    // eee.forEach(async (doc) => {
-    //   // doc.events.forEach(function (event) {
-    //   //   event.elo = event.elo * 2;
-    //   // });
-    //   // WerewolfProfile.save(doc);
-    //   const newElo = doc.elo * 20;
-    //   await WerewolfProfile.updateOne({ _id: doc._id }, { $set: { elo: 900 } });
-    //   console.log(doc);
-    // });
 
     console.log("resetElo successful...".red.inverse);
+    return;
+  } catch (error) {
+    console.log(error);
+  }
+};
+const resetEloSH = async () => {
+  try {
+    // await WerewolfProfile.updateMany({}, { $inc: { elo: -6 } });
+    await SHProfile.updateMany({}, { $set: { elo: 1000 } });
+
+    console.log("resetElo SH successful...".red.inverse);
     return;
   } catch (error) {
     console.log(error);
@@ -108,6 +106,20 @@ const reconcileElo = async () => {
       // });
       // WerewolfProfile.save(doc);
       await updateElo(doc);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+const reconcileEloSH = async () => {
+  try {
+    const games = await SHGame.find();
+    games.forEach(async (doc) => {
+      // doc.events.forEach(function (event) {
+      //   event.elo = event.elo * 2;
+      // });
+      // WerewolfProfile.save(doc);
+      await updateEloSH(doc);
     });
   } catch (err) {
     console.log(err);
@@ -196,8 +208,14 @@ if (process.argv[2] === "-csh") {
 if (process.argv[2] === "-re") {
   resetElo();
 }
+if (process.argv[2] === "-resh") {
+  resetEloSH();
+}
 if (process.argv[2] === "-ue") {
   reconcileElo();
+}
+if (process.argv[2] === "-uesh") {
+  reconcileEloSH();
 }
 if (process.argv[2] === "-xx") {
   (async () => {
