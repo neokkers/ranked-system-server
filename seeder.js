@@ -13,8 +13,8 @@ const WerewolfGame = require("./models/Werewolf/WerewolfGame");
 const SHProfile = require("./models/SH/SHProfile");
 const SHGame = require("./models/SH/SHGame");
 
-const { updateElo } = require("./utils/updateElo");
-const { updateEloSH } = require("./utils/updateEloSH");
+const { updateElo } = require("./utilsFolder/updateElo");
+const { updateEloSH } = require("./utilsFolder/updateEloSH");
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,

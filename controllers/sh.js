@@ -1,7 +1,7 @@
 const asyncHandler = require("../middlewareFolder/async");
 const SHProfile = require("../models/SH/SHProfile");
 const SHGame = require("../models/SH/SHGame");
-const { updateEloSH } = require("../utils/updateEloSH");
+const { updateEloSH } = require("../utilsFolder/updateEloSH");
 
 // @desc    Get profiles
 // @route   GET /api/v1/sh/profiles

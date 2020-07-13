@@ -6,7 +6,7 @@ const {
   resetPasswordTemplate,
   getRegisterTemplate,
 } = require("./mailer");
-const ErrorResponse = require("../utils/errorResponse");
+const ErrorResponse = require("../utilsFolder/errorResponse");
 const asyncHandler = require("../middlewareFolder/async");
 const User = require("../models/User");
 const WerewolfProfile = require("../models/Werewolf/WerewolfProfile");

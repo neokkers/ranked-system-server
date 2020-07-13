@@ -1,7 +1,7 @@
 const asyncHandler = require("../middlewareFolder/async");
 const WerewolfProfile = require("../models/Werewolf/WerewolfProfile");
 const WerewolfGame = require("../models/Werewolf/WerewolfGame");
-const { updateElo } = require("../utils/updateElo");
+const { updateElo } = require("../utilsFolder/updateElo");
 
 // @desc    Get profiles
 // @route   GET /api/v1/werewolf/profiles

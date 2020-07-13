@@ -1,4 +1,4 @@
-const ErrorResponse = require("../utils/errorResponse");
+const ErrorResponse = require("../utilsFolder/errorResponse");
 
 const errorHandler = (err, req, res, next) => {
   let error = ErrorResponse("Something went wrong :(", 500);

@@ -4,7 +4,7 @@ const {
   createWerewolfGame,
   getWerewolfGames,
 } = require("../controllers/werewolf");
-const ErrorResponse = require("../utils/errorResponse");
+const ErrorResponse = require("../utilsFolder/errorResponse");
 const router = express.Router();
 const { protect } = require("../middlewareFolder/auth");
 
