@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const colors = require("colors");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const errorHandler = require("./middleware/error");
+const errorHandler = require("./middlewareFolder/error");
 const connectDB = require("./config/db");
 
 // load env vars
@@ -30,7 +30,7 @@ app.use(express.json());
 // Cookie parser
 app.use(cookieParser());
 
-// Dev logging middleware
+// Dev logging middlewareFolder
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
@@ -41,7 +41,7 @@ app.use("/api/v1/users", users);
 app.use("/api/v1/werewolf", werewolf);
 app.use("/api/v1/sh", sh);
 
-// Error handler middleware
+// Error handler middlewareFolder
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5005;

@@ -1,4 +1,4 @@
-const asyncHandler = require("../middleware/async");
+const asyncHandler = require("../middlewareFolder/async");
 const WerewolfProfile = require("../models/Werewolf/WerewolfProfile");
 const WerewolfGame = require("../models/Werewolf/WerewolfGame");
 const { updateElo } = require("../utils/updateElo");

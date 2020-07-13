@@ -7,7 +7,7 @@ const {
   getRegisterTemplate,
 } = require("./mailer");
 const ErrorResponse = require("../utils/errorResponse");
-const asyncHandler = require("../middleware/async");
+const asyncHandler = require("../middlewareFolder/async");
 const User = require("../models/User");
 const WerewolfProfile = require("../models/Werewolf/WerewolfProfile");
 const SHProfile = require("../models/SH/SHProfile");
@@ -152,10 +152,10 @@ const receiveNewPassword = asyncHandler(async (req, res, next) => {
 
   if (payload.userId === user.id) {
     bcrypt.genSalt(10, (err, salt) => {
-      // Call error-handling middleware:
+      // Call error-handling middlewareFolder:
       if (err) return;
       bcrypt.hash(password, salt, (err, hash) => {
-        // Call error-handling middleware:
+        // Call error-handling middlewareFolder:
         if (err) return;
         User.findOneAndUpdate({ _id: userId }, { password: hash })
           .then(() => res.status(202).json("Password changed accepted"))
@@ -172,10 +172,10 @@ const receiveNewPassword = asyncHandler(async (req, res, next) => {
   //     const payload = jwt.decode(token, secret);
   //     if (payload.userId === user.id) {
   //       bcrypt.genSalt(10, (err, salt) => {
-  //         // Call error-handling middleware:
+  //         // Call error-handling middlewareFolder:
   //         if (err) return;
   //         bcrypt.hash(password, salt, (err, hash) => {
-  //           // Call error-handling middleware:
+  //           // Call error-handling middlewareFolder:
   //           if (err) return;
   //           User.findOneAndUpdate({ _id: userId }, { password: hash })
   //             .then(() => res.status(202).json("Password changed accepted"))

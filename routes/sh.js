@@ -5,7 +5,7 @@ const {
   createSHGame,
 } = require("../controllers/sh");
 const router = express.Router();
-const { protect } = require("../middleware/auth");
+const { protect } = require("../middlewareFolder/auth");
 
 router.route("/profiles").get(getSHProfiles);
 router.route("/games").get(getSHGames).post(protect, createSHGame);

@@ -1,4 +1,4 @@
-const asyncHandler = require("../middleware/async");
+const asyncHandler = require("../middlewareFolder/async");
 const SHProfile = require("../models/SH/SHProfile");
 const SHGame = require("../models/SH/SHGame");
 const { updateEloSH } = require("../utils/updateEloSH");
