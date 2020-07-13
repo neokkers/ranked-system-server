@@ -24,7 +24,7 @@ const register = asyncHandler(async (req, res, next) => {
     password,
   });
 
-  if (!user) return next(new ErrorResponse("Register error", 500));
+  if (!user) return next(ErrorResponse("Register error", 500));
 
   // Create game profiles
   const werewolfProfile = await WerewolfProfile.create({
@@ -39,7 +39,7 @@ const register = asyncHandler(async (req, res, next) => {
   if (!werewolfProfile || !shProfile)
     // if (!werewolfProfile)
     return next(
-      new ErrorResponse("Register error while creating game profiles", 500)
+      ErrorResponse("Register error while creating game profiles", 500)
     );
 
   // Create token
@@ -54,19 +54,17 @@ const login = asyncHandler(async (req, res, next) => {
 
   // Validate email & password
   if (!username || !password) {
-    return next(
-      new ErrorResponse("Please provide a username and password", 400)
-    );
+    return next(ErrorResponse("Please provide a username and password", 400));
   }
 
   // Check for user
   const user = await User.findOne({ username }).select("+password");
 
-  if (!user) return next(new ErrorResponse("Invalid credentials", 401));
+  if (!user) return next(ErrorResponse("Invalid credentials", 401));
 
   // Check pass match
   const isMatch = await user.matchPassword(password);
-  if (!isMatch) return next(new ErrorResponse("Invalid credentials", 401));
+  if (!isMatch) return next(ErrorResponse("Invalid credentials", 401));
 
   // Create token
   sendTokenResponse(user, 200, res);
@@ -119,7 +117,7 @@ const sendPasswordResetEmail = asyncHandler(async (req, res, next) => {
 
   user = await User.findOne({ email });
 
-  if (!user) return next(new ErrorResponse("No user with that email", 404));
+  if (!user) return next(ErrorResponse("No user with that email", 404));
 
   const token = usePasswordHashToMakeToken(user);
   const url = getPasswordResetURL(user, token);
@@ -127,7 +125,7 @@ const sendPasswordResetEmail = asyncHandler(async (req, res, next) => {
   const sendEmail = () => {
     transporter.sendMail(emailTemplate, (err, info) => {
       if (err) {
-        return next(new ErrorResponse("Error in sending email", 500));
+        return next(ErrorResponse("Error in sending email", 500));
       }
       console.log("** Email sent **", info.response);
       res.status(200).json({ success: true });
@@ -147,7 +145,7 @@ const receiveNewPassword = asyncHandler(async (req, res, next) => {
 
   user = await User.findOne({ _id: userId });
 
-  if (!user) return next(new ErrorResponse("No user with that id", 404));
+  if (!user) return next(ErrorResponse("No user with that id", 404));
 
   const secret = `${user.password}-${user.createdAt}`;
   const payload = jwt.decode(token, secret);
@@ -161,7 +159,7 @@ const receiveNewPassword = asyncHandler(async (req, res, next) => {
         if (err) return;
         User.findOneAndUpdate({ _id: userId }, { password: hash })
           .then(() => res.status(202).json("Password changed accepted"))
-          .catch((err) => next(new ErrorResponse(err, 500)));
+          .catch((err) => next(ErrorResponse(err, 500)));
       });
     });
   }
